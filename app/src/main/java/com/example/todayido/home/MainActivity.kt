@@ -1,9 +1,10 @@
-package com.example.todayido
+package com.example.todayido.home
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.todayido.R
+import com.example.todayido.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
