@@ -12,7 +12,8 @@ import java.util.*
 
 class TaskAdapter(
     private var listTaskData: MutableList<TaskEntity>?,
-    private val onItemClick: ((Int) -> Unit)? = null
+    private val onItemClick: ((Int) -> Unit)? = null,
+    private val onSwipeItem: ((Int) -> Unit)? = null
 ) : RecyclerView.Adapter<TaskBaseHolder>(), RecyclerTouchHelperListener  {
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -22,6 +23,7 @@ class TaskAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
+        onSwipeItem?.invoke(position)
         listTaskData?.removeAt(position)
         notifyItemRemoved(position)
     }

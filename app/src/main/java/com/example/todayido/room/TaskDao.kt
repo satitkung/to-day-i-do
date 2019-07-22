@@ -2,26 +2,20 @@ package com.example.todayido.room
 
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Delete
-import androidx.room.Update
-
-
+import androidx.room.*
 
 
 @Dao
 interface TaskDao {
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: TaskEntity)
 
     @Query("SELECT * FROM task_table")
     fun getListTasks(): LiveData<MutableList<TaskEntity>>
 
     @Query("SELECT * FROM task_table WHERE tagColor = :tag")
-    fun getListTaskByTags(tag: String): LiveData<MutableList<TaskEntity>>
+    fun getListTaskByTags(tag: Int): LiveData<MutableList<TaskEntity>>
 
     @Delete
     fun deleteTask(taskEntity: TaskEntity)

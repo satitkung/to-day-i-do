@@ -6,8 +6,13 @@
         android:layout_height="match_parent"
         tools:context=".home.activity.HomeActivity">
 
+    <include
+            layout="@layout/app_tool_bar"
+            android:id="@+id/main_toobar"/>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_list_task"
+            android:layout_below="@+id/main_toobar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
