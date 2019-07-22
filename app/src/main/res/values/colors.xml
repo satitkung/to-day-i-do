@@ -6,4 +6,5 @@
     <color name="colorBlueWater">#69D2E7</color>
     <color name="colorBlueSky">#A7DBD8</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorBlack">#000</color>
 </resources>

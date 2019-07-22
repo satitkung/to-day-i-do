@@ -4,5 +4,4 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 
 
-class SplashScreenViewModel(app: Application): AndroidViewModel(app) {
-}
+class SplashScreenViewModel(app: Application): AndroidViewModel(app)

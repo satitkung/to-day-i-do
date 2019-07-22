@@ -8,7 +8,8 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProviders
 import com.example.todayido.R
 import com.example.todayido.baseAndUtils.BaseActivity
-import com.example.todayido.home.MainActivity
+import com.example.todayido.home.activity.HomeActivity
+import com.example.todayido.model.Tags
 import com.example.todayido.splashScreen.viewModel.SplashScreenViewModel
 import kotlinx.android.synthetic.main.activity_spash_screen.*
 
@@ -41,7 +42,7 @@ class SplashScreenActivity : BaseActivity() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 logo.visibility = View.GONE
-                Intent(this@SplashScreenActivity, MainActivity::class.java).run {
+                Intent(this@SplashScreenActivity, HomeActivity::class.java).run {
                     startActivity(this)
                     finish()
                 }

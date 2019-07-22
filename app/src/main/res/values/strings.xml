@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ToDayIDo</string>
+    <string-array name="tag">
+        <item>none</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+    </string-array>
 </resources>

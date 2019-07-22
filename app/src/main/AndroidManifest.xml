@@ -11,6 +11,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".EditCardTask.activity.EditCardTaskActivity">
+        </activity>
         <activity
                 android:name=".splashScreen.activity.SplashScreenActivity"
                 android:theme="@style/SplashScreenAppTheme">
@@ -21,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".baseAndUtils.BaseActivity"/>
-        <activity android:name=".home.MainActivity"/>
+        <activity android:name=".home.activity.HomeActivity"/>
     </application>
 
 </manifest>
