@@ -43,7 +43,7 @@ class EditCardTaskActivity : BaseActivity() {
     override fun initViewModel() {
         editCardViewModel = ViewModelProviders.of(this).get(EditCardViewModel::class.java)
         listTaskSize = intent?.getIntExtra("list_task_size", 0) ?: 0
-        taskEntity = intent?.extras?.getParcelable("task_object")
+//        taskEntity = intent?.extras?.getParcelable("task_object")
         setupView()
     }
 
@@ -74,7 +74,7 @@ class EditCardTaskActivity : BaseActivity() {
                 spn_tag.setSelection(getSelectionTag(color))
             }
             it.image?.let{ image ->
-                img_place.setImageBitmap(Utils.imageByteArrayToBitmap(image))
+//                img_place.setImageBitmap(Utils.imageByteArrayToBitmap(image))
             }
         }
     }
@@ -125,8 +125,11 @@ class EditCardTaskActivity : BaseActivity() {
                 CHOOSE_IMAGE_FROM_GALLERY -> {
                     data?.let {
                         val contentURI = it.data
-                        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                        setImagePlace(bitmap)
+                        contentURI?.let { uri ->
+                            editCardViewModel.setPictureUri(uri)
+                            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                            setImagePlace(bitmap)
+                        }
                     }
                 }
 
@@ -162,7 +165,7 @@ class EditCardTaskActivity : BaseActivity() {
                         edt_description.text.toString(),
                         listTaskSize + 1,
                         tagSelected,
-                        Utils.imageBitmapToByteArray(img_place)
+                        Utils.validateImageNull(img_place, editCardViewModel.getPictureUri())
                 ))
                 finish()
             }

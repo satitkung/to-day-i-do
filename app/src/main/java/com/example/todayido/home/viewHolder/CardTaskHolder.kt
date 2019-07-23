@@ -8,7 +8,7 @@ import com.example.todayido.room.TaskEntity
 class CardTaskHolder(private val view: CardTaskView): TaskBaseHolder(view) {
 
     override fun bindData(
-        data: TaskEntity,
+        data: TaskCardData,
         onItemClick: ((Int) -> Unit)?,
         position: Int
     ) {

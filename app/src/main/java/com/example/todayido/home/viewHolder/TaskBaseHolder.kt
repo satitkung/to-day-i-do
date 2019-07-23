@@ -8,7 +8,7 @@ import com.example.todayido.room.TaskEntity
 abstract class TaskBaseHolder(view: View): RecyclerView.ViewHolder(view) {
 
     abstract fun bindData(
-        data: TaskEntity,
+        data: TaskCardData,
         onItemClick: ((Int) -> Unit)?,
         position: Int
     )

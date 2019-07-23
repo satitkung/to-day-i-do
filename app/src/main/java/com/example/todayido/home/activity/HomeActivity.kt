@@ -16,6 +16,7 @@ import com.example.todayido.baseAndUtils.BaseActivity
 import com.example.todayido.baseAndUtils.RecyclerTouchHelperCallback
 import com.example.todayido.home.adapter.TaskAdapter
 import com.example.todayido.home.viewModel.HomeViewModel
+import com.example.todayido.model.TaskCardData
 
 import com.example.todayido.room.TaskEntity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -26,7 +27,8 @@ import kotlinx.android.synthetic.main.buttom_sheet_layout.view.*
 class HomeActivity : BaseActivity() {
 
     private var cardSelectPosition = 0
-    private var listTask: MutableList<TaskEntity>? = null
+    private var listTask: MutableList<TaskCardData>? = null
+    private var listTaskEntity: MutableList<TaskEntity>? = null
     private lateinit var adapter: TaskAdapter
     private lateinit var homeViewModel: HomeViewModel
     private var bottomSheetCallback: BottomSheetBehavior.BottomSheetCallback =
@@ -85,12 +87,15 @@ class HomeActivity : BaseActivity() {
         )
 
         homeViewModel.getListTaskByFilterTags().observe(this, Observer { list ->
-            adapter.updateData(list)
+            listTaskEntity = list
+            listTask = homeViewModel.convertDataToModel(list, this@HomeActivity)
+            adapter.updateData(listTask)
         })
 
         homeViewModel.getListTask()?.observe(this, Observer { list ->
-            listTask = list
-            adapter.updateData(list)
+            listTaskEntity = list
+            listTask = homeViewModel.convertDataToModel(list, this@HomeActivity)
+            adapter.updateData(listTask)
         })
 
         rcv_list_task.adapter = adapter
@@ -104,6 +109,7 @@ class HomeActivity : BaseActivity() {
         }
     }
 
+    //TODO need to send path instead bitmap
     private fun editCardTaskScreen() {
         listTask?.let {
             Intent(this@HomeActivity, EditCardTaskActivity::class.java).apply {
@@ -123,7 +129,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun deleteCardTask() {
-        listTask?.let {
+        listTaskEntity?.let {
             if (it.isNotEmpty())
                 homeViewModel.deleteTask(it[cardSelectPosition])
         }

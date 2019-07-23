@@ -11,7 +11,7 @@ import com.example.todayido.room.TaskEntity
 import java.util.*
 
 class TaskAdapter(
-    private var listTaskData: MutableList<TaskEntity>?,
+    private var listTaskData: MutableList<TaskCardData>?,
     private val onItemClick: ((Int) -> Unit)? = null,
     private val onSwipeItem: ((Int) -> Unit)? = null
 ) : RecyclerView.Adapter<TaskBaseHolder>(), RecyclerTouchHelperListener  {
@@ -47,7 +47,7 @@ class TaskAdapter(
         }
     }
 
-    fun updateData(listTaskData: MutableList<TaskEntity>?) {
+    fun updateData(listTaskData: MutableList<TaskCardData>?) {
         this.listTaskData = listTaskData
         notifyDataSetChanged()
     }

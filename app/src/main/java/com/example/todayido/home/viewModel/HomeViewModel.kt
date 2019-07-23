@@ -11,7 +11,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todayido.R
 import com.example.todayido.baseAndUtils.TaskRepositoryManager
+import com.example.todayido.baseAndUtils.Utils
 import com.example.todayido.home.activity.HomeActivity
+import com.example.todayido.model.TaskCardData
 import com.example.todayido.room.TaskEntity
 
 
@@ -20,19 +22,20 @@ class HomeViewModel(app: Application): AndroidViewModel(app) {
     private val context: Context = getApplication<Application>().applicationContext
     private var tasklists: LiveData<MutableList<TaskEntity>>? = null
     private var tasklist = MutableLiveData<MutableList<TaskEntity>>()
+    private var taskCardDataList = mutableListOf<TaskEntity>()
     private val taskRepositoryManager by lazy {
         TaskRepositoryManager(context)
     }
 
     fun getListTask():  LiveData<MutableList<TaskEntity>>?{
         tasklists =  taskRepositoryManager.getListTasks()
+        tasklist.postValue(tasklists?.value)
         return tasklists!!
     }
 
-    fun getListTaskByTags(tag: Int): LiveData<MutableList<TaskEntity>> {
-        tasklists =  taskRepositoryManager.getListTaskByTags(tag)
-        tasklist.value = tasklists?.value
-        return tasklists!!
+    fun setListTaskByTags(tag: Int) {
+        val data =  taskRepositoryManager.getListTaskByTags(tag)
+        tasklist.postValue(data)
     }
 
     fun getListTaskByFilterTags(): MutableLiveData<MutableList<TaskEntity>> {
@@ -47,18 +50,36 @@ class HomeViewModel(app: Application): AndroidViewModel(app) {
         val pictureDialog = AlertDialog.Builder(activity)
         pictureDialog.setTitle("Filter by")
         val pictureDialogItems = arrayOf(
-            "None",
+//            "None",
             "Red",
             "Green",
             "Blue")
         pictureDialog.setItems(pictureDialogItems) { _, which ->
             when (which) {
-                0 -> getListTask()
-                1 -> getListTaskByTags(R.color.colorRed)
-                2 -> getListTaskByTags(R.color.colorGreen)
-                3 -> getListTaskByTags(R.color.colorBlue)
+//                0 -> getListTask()
+                0 -> setListTaskByTags(R.color.colorRed)
+                1 -> setListTaskByTags(R.color.colorGreen)
+                2 -> setListTaskByTags(R.color.colorBlue)
             }
         }
         pictureDialog.show()
+    }
+
+    fun convertDataToModel(listTaskEntity: MutableList<TaskEntity>?, activity: Activity): MutableList<TaskCardData> {
+        val listData = mutableListOf<TaskCardData>()
+        listTaskEntity?.let {
+            it.forEach { taskEntity ->
+                listData.add(TaskCardData(
+                    taskEntity.id,
+                    taskEntity.title,
+                    taskEntity.description,
+                    taskEntity.position,
+                    taskEntity.tagColor,
+                    Utils.getImageFromUri(activity, taskEntity.image)))
+            }
+            return listData
+        } ?: run {
+            return listData
+        }
     }
 }

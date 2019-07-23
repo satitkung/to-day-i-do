@@ -6,9 +6,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import com.example.todayido.R
-import com.example.todayido.baseAndUtils.Utils
 import com.example.todayido.model.TaskCardData
-import com.example.todayido.room.TaskEntity
 import kotlinx.android.synthetic.main.item_card_task_view.view.*
 
 
@@ -26,7 +24,7 @@ class CardTaskView
     }
 
     fun bindData(
-        data: TaskEntity,
+        data: TaskCardData,
         onItemClick: ((Int) -> Unit)?,
         position: Int
     ) {
@@ -39,7 +37,7 @@ class CardTaskView
         }
 
         data.image?.let {
-            img_description.setImageBitmap(Utils.imageByteArrayToBitmap(it))
+            img_description.setImageBitmap(it)
         } ?: run {
             img_description.visibility = View.GONE
         }

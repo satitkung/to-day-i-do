@@ -6,14 +6,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "task_table")
 class TaskEntity(
-    val title: String,
-    val description: String? = null,
-    val position: Int,
-    val tagColor: Int? = null,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) var image: ByteArray? = null) : Parcelable {
+    var title: String,
+    var description: String? = null,
+    var position: Int,
+    var tagColor: Int? = null,
+    var image: String? = null) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

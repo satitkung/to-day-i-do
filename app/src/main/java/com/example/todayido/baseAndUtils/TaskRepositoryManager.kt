@@ -24,7 +24,7 @@ class TaskRepositoryManager(context: Context) {
         return  taskDatabase?.taskDao()?.getListTasks()
     }
 
-    fun getListTaskByTags(tag: Int): LiveData<MutableList<TaskEntity>>? {
+    fun getListTaskByTags(tag: Int): MutableList<TaskEntity>? {
         return  taskDatabase?.taskDao()?.getListTaskByTags(tag)
     }
 

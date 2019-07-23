@@ -15,7 +15,7 @@ interface TaskDao {
     fun getListTasks(): LiveData<MutableList<TaskEntity>>
 
     @Query("SELECT * FROM task_table WHERE tagColor = :tag")
-    fun getListTaskByTags(tag: Int): LiveData<MutableList<TaskEntity>>
+    fun getListTaskByTags(tag: Int): MutableList<TaskEntity>
 
     @Delete
     fun deleteTask(taskEntity: TaskEntity)
